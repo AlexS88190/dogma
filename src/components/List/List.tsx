@@ -1,5 +1,5 @@
 import {List} from 'antd';
-import React from 'react';
+import React, {FC} from 'react';
 import PhotoItem from "../PhotoItem/PhotoItem";
 import NewsItem from "../../NewsItem/NewsItem";
 
@@ -30,7 +30,11 @@ const data = [
     },
 ];
 
-const _List: React.FC = () => (
+interface ListProps {
+    currentPage: string
+}
+
+const _List: FC<ListProps> = ({ currentPage }) => (
 
         <List
             itemLayout="vertical"
@@ -39,8 +43,10 @@ const _List: React.FC = () => (
             className="list"
             renderItem={(item, index) => (
                 <div className="list__item">
-                    {/*<PhotoItem/>*/}
-                    <NewsItem/>
+                    {currentPage === 'news'
+                        ? <NewsItem/>
+                        : <PhotoItem/>
+                    }
                 </div>
 
 

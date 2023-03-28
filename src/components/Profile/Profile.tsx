@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import {Button, Form, Input} from "antd";
 import { Typography } from 'antd';
 import './Profile.css';
-import Navigation from "../Main/Main";
 
 const { Title } = Typography;
 
@@ -17,7 +16,6 @@ const onFinishFailed = (errorInfo: any) => {
 
 const Profile: FC = () => (
     <>
-        <Navigation/>
         <div className="profile">
             <Title className="profile__title">Профиль пользователя</Title>
             <Form

@@ -3,6 +3,7 @@ import { ChromeFilled, ProfileFilled, PictureFilled } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import List from '../List/List'
+import Profile from "../Profile/Profile";
 
 const items: MenuProps['items'] = [
     {
@@ -32,17 +33,20 @@ const items: MenuProps['items'] = [
 ];
 
 const Main: FC = () => {
-    const [current, setCurrent] = useState('profile');
+    const [currentPage, setCurrentPage] = useState<string>('profile');
 
-    const onClick: MenuProps['onClick'] = (event) => {
+    const handlePage: MenuProps['onClick'] = (event) => {
         console.log('click ', event);
-        setCurrent(event.key);
+        setCurrentPage(event.key);
     };
 
     return (
         <>
-            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{fontSize: 20}} />
-            <List/>
+            <Menu onClick={handlePage} selectedKeys={[currentPage]} mode="horizontal" items={items} style={{fontSize: 20}} />
+            {currentPage === 'profile'
+                ? <Profile/>
+                : <List currentPage={currentPage}/>
+            }
         </>
 
     );
