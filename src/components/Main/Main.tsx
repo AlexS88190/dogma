@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react';
 import { ChromeFilled, ProfileFilled, PictureFilled } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import List from '../List/List'
 
 const items: MenuProps['items'] = [
     {
@@ -30,15 +31,21 @@ const items: MenuProps['items'] = [
     // },
 ];
 
-const Navigation: FC = () => {
-    const [current, setCurrent] = useState('mail');
+const Main: FC = () => {
+    const [current, setCurrent] = useState('profile');
 
     const onClick: MenuProps['onClick'] = (event) => {
         console.log('click ', event);
         setCurrent(event.key);
     };
 
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{fontSize: 20}} />;
+    return (
+        <>
+            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{fontSize: 20}} />
+            <List/>
+        </>
+
+    );
 };
 
-export default Navigation;
+export default Main;

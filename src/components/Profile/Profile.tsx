@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {Button, Form, Input} from "antd";
 import { Typography } from 'antd';
 import './Profile.css';
-import Navigation from "../Navigation/Navigtion";
+import Navigation from "../Main/Main";
 
 const { Title } = Typography;
 
