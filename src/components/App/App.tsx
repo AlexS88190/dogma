@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import AuthForm from "../AuthForm/AuthForm";
+import Profile from "../Profile/Profile";
 
 function App() {
 
@@ -8,7 +9,7 @@ function App() {
   return (
     <div className="page">
       <div className="page__content">
-          <AuthForm/>
+          <Profile/>
       </div>
     </div>
   );

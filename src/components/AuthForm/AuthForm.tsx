@@ -31,9 +31,12 @@ const AuthForm: FC = () => (
 
         >
             <Form.Item
-                label="Имя"
-                name="username"
-                rules={[{ required: true, message: 'Введите имя!' }]}
+                label="E-mail"
+                name="email"
+                rules={[
+                    {type: 'email', message: 'Формат почты не корректен!'},
+                    {required: true, message: 'Введите свой E-mail!'}
+                ]}
             >
                 <Input />
             </Form.Item>
