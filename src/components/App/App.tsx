@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import AuthForm from "../AuthForm/AuthForm";
 
 function App() {
 
@@ -7,7 +8,7 @@ function App() {
   return (
     <div className="page">
       <div className="page__content">
-            Hello
+          <AuthForm/>
       </div>
     </div>
   );
