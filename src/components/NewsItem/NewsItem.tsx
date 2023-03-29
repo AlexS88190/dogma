@@ -1,13 +1,26 @@
 import {Card, Space} from 'antd';
 import React, {FC} from 'react';
+import {INews, IUserStorage} from "../../interfaces/interfaces";
+import Preloader from "../Preloader/Preloader";
 
-const NewsItem: FC = () => (
+interface ListProps {
+    newsItem: INews
+    userStorage: IUserStorage,
+}
+
+const NewsItem: FC <ListProps> = ({ newsItem, userStorage}) => {
+
+    const authorContainer = <p>{userStorage[newsItem.userId].name}</p>
+
+
+    return (
     <Space direction="vertical" size={16}>
-        <Card title="Default size card" size="small" extra={<p>Автор: Graham</p>} style={{ width: "100%" }} >
-            <p>eveniet quo quis\nlaborum totam consequatur non dolor\nut et est repudiandae\nest voluptatem vel debitis et magnam eveniet quo quis\nlaborum totam consequatur non dolor\nut et est repudiandae\nest voluptatem vel debitis et magnam lor\nut et est repudiandae\nest voluptatem vel debitis et magnam eveniet quo quis\nlaborum totam consequatur non dolor\nut et est repudiandae\nest voluptatem vel debitis et magnam lor\nut et est repudiandae\nest voluptatem vel debitis et magnam eveniet quo quis\nlaborum totam consequatur non dolor\nut et est repudiandae\nest voluptatem vel debitis et magnam</p>
+        <Card title={newsItem.title} size="small" extra={authorContainer} style={{ width: "100%" }} >
+            <p>{newsItem.body}</p>
 
         </Card>
     </Space>
-);
+    );
+}
 
 export default NewsItem;

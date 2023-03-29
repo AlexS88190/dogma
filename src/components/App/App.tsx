@@ -15,6 +15,7 @@ function App() {
 
 
 
+
     const handleLogin = async () => {
         setLoggedIn(true);
         await getJwtToken()
@@ -52,7 +53,6 @@ function App() {
               <Route
                   path='/signin'
                   element={
-
                           <AuthForm
                               handleLogin={handleLogin}
                           />
