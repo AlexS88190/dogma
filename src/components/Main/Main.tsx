@@ -1,38 +1,42 @@
 import React, {FC, useState} from 'react';
 import { ChromeFilled, ProfileFilled, PictureFilled } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Menu } from 'antd';
+import {Button, Menu} from 'antd';
 import List from '../List/List'
 import Profile from "../Profile/Profile";
 
-const items: MenuProps['items'] = [
-    {
-        label: 'Профиль',
-        key: 'profile',
-        icon: <ProfileFilled />
-    },
-    {
-        label: 'Новости',
-        key: 'news',
-        icon: <ChromeFilled />
-    },
-    {
-        label: 'Галерея',
-        key: 'gallery',
-        icon: <PictureFilled />
-    },
+interface MainProps {
+    handleLogout: () => void,
+}
 
-    // {
-    //     label: (
-    //         <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-    //             Navigation Four - Link
-    //         </a>
-    //     ),
-    //     key: 'alipay',
-    // },
-];
+const Main: FC<MainProps> = ( {handleLogout} ) => {
 
-const Main: FC = () => {
+    const items: MenuProps['items'] = [
+        {
+            label: 'Профиль',
+            key: 'profile',
+            icon: <ProfileFilled />
+        },
+        {
+            label: 'Новости',
+            key: 'news',
+            icon: <ChromeFilled />
+        },
+        {
+            label: 'Галерея',
+            key: 'gallery',
+            icon: <PictureFilled />
+        },
+        {
+            label: (
+                <Button onClick={handleLogout} style={{color: "#000", fontSize: 20}} type="link">Выход</Button>
+            ),
+            key: 'logout',
+            disabled: true
+        }
+    ];
+
+
     const [currentPage, setCurrentPage] = useState<string>('profile');
 
     const handlePage: MenuProps['onClick'] = (event) => {

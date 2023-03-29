@@ -1,7 +1,7 @@
 import {List} from 'antd';
 import React, {FC} from 'react';
 import PhotoItem from "../PhotoItem/PhotoItem";
-import NewsItem from "../../NewsItem/NewsItem";
+import NewsItem from "../NewsItem/NewsItem";
 
 const data = [
     {
