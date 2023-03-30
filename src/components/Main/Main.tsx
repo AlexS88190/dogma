@@ -51,7 +51,6 @@ const Main: FC<MainProps> = ( {handleLogout} ) => {
 
 
     const handlePage: MenuProps['onClick'] = (event) => {
-        console.log('click ', event);
         setCurrentPage(event.key);
     };
 
