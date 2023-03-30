@@ -1,4 +1,4 @@
-import React, {FC, PropsWithChildren} from "react";
+import React, {FC} from "react";
 import {Navigate} from "react-router-dom";
 
 interface IProtectedRoute {
