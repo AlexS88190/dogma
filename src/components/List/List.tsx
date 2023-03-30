@@ -50,6 +50,11 @@ const _List: FC<ListProps> = ({ currentPage, userStorage, turnOnPreloader, turnO
     const [limit, setLimit] = useState<number>(12);
 
 
+    useEffect(() => {
+        setLimit(12)
+        setAuthorId(undefined)
+    }, [currentPage])
+
 
     useEffect(() => {
         if (authorId) {
@@ -57,7 +62,23 @@ const _List: FC<ListProps> = ({ currentPage, userStorage, turnOnPreloader, turnO
         } else {
             getNews(limit)
         }
+    }, [limit, currentPage])
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll)
     }, [limit])
+
+    const handleScroll = () => {
+        console.log("Height", document.documentElement.scrollHeight)
+        console.log("Top", document.documentElement.scrollTop)
+        console.log("Window", window.innerHeight)
+
+        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+            setLimit(limit + 12)
+        }
+    }
+
 
 
     const getNews = async (limit: number) => {
