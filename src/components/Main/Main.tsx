@@ -2,10 +2,11 @@ import React, {FC, useEffect, useState} from 'react';
 import { ChromeFilled, ProfileFilled, PictureFilled } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import {Button, Menu, notification} from 'antd';
-import List from '../List/List'
 import Profile from "../Profile/Profile";
 import {IUser, IUserStorage, IValuesProfile} from "../../interfaces/interfaces";
 import {api} from "../../utils/api";
+import News from "../News/News";
+import Gallery from "../Gallery/Gallery";
 
 interface MainProps {
     handleLogout: () => void,
@@ -59,10 +60,13 @@ const Main: FC<MainProps> = ( {handleLogout} ) => {
         try {
             const responseUser:IUser = await api.getUserInfo();
             setUser(responseUser)
-
-            setPreloader(false)
         } catch (error) {
             console.log(error)
+            notification.open({
+                message: 'Ошибка при запросе данных профиля',
+                duration: 2
+            });
+        } finally {
             setPreloader(false)
         }
     }
@@ -87,20 +91,23 @@ const Main: FC<MainProps> = ( {handleLogout} ) => {
                 phone,
                 website
             }
+
             try {
+                setPreloader(true)
                 const userDataResponse = await api.updateProfileInfo(userData);
                 setUser(userDataResponse)
                 notification.open({
                     message: 'Профиль успешно обновлен',
                     duration: 2
-                });
-
+                })
             } catch (error) {
                 console.log(error)
                 notification.open({
                     message: 'Ошибка при обновлении профиля',
                     duration: 2
                 });
+            } finally {
+                setPreloader(false)
             }
         }
     }
@@ -115,21 +122,33 @@ const Main: FC<MainProps> = ( {handleLogout} ) => {
             setUserStorage(userStorage)
         } catch (error) {
             console.log(error)
+            notification.open({
+                message: 'Ошибка получения списка авторов',
+                duration: 2
+            });
         }
     }
 
     const turnOnPreloader = () => setPreloader(true);
     const turnOffPreloader = () => setPreloader(false);
 
-
+    let page = null
+    switch (currentPage) {
+        case 'profile':
+            page = <Profile user={user} editProfile={editProfile} isPreloader={isPreloader}/>
+            break
+        case  'news':
+            page = <News userStorage={userStorage} turnOnPreloader={turnOnPreloader} turnOffPreloader={turnOffPreloader} isPreloader={isPreloader}/>
+            break
+        case  'gallery':
+            page = <Gallery turnOnPreloader={turnOnPreloader} turnOffPreloader={turnOffPreloader} isPreloader={isPreloader}/>
+            break
+    }
 
     return (
         <>
             <Menu onClick={handlePage} selectedKeys={[currentPage]} mode="horizontal" items={items} style={{fontSize: 20}} />
-            {currentPage === 'profile'
-                ? <Profile user={user} editProfile={editProfile} isPreloader={isPreloader}/>
-                : <List currentPage={currentPage} userStorage={userStorage} turnOnPreloader={turnOnPreloader} turnOffPreloader={turnOffPreloader} isPreloader={isPreloader}/>
-            }
+            {page}
         </>
 
     );

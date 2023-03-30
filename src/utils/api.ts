@@ -1,5 +1,4 @@
-import {INews, IUser} from "../interfaces/interfaces";
-
+import {INews, IPicture, IUser} from "../interfaces/interfaces";
 
 export class Api {
     constructor(baseUrl: string) {
@@ -24,8 +23,6 @@ export class Api {
         }));
     }
 
-
-
     updateProfileInfo = async (user: IUser): Promise<IUser> => {
         return this.addHandlers<IUser>(fetch( `${this.baseUrl}/users/1`, {
             method: 'PUT',
@@ -34,18 +31,22 @@ export class Api {
         }));
     }
 
-    getNews = async (limit: number): Promise<INews[]> => {
-        return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/posts?_start=0&_limit=${limit}`, {
+    getNews = async (offset: number, limit: number, authorId: number | undefined): Promise<INews[]> => {
+        if (authorId !== undefined) {
+            return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/users/${authorId}/posts?_start=${offset}&_limit=${limit}`, {
+                headers : this.headers
+            }));
+        }
+        return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/posts?_start=${offset}&_limit=${limit}`, {
             headers : this.headers
         }));
     }
 
-    getNewsUser = async (authorId: number, limit: number): Promise<INews[]> => {
-        return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/users/${authorId}/posts?_start=0&_limit=${limit}`, {
+    getPictures = async (offset: number, limit: number): Promise<IPicture[]> => {
+        return this.addHandlers<IPicture[]>(fetch(`${this.baseUrl}/photos?_start=${offset}&_limit=${limit}`, {
             headers : this.headers
         }));
     }
-
 
     private addHandlers<T>(promise: Promise<Response>): Promise<T> {
         return promise
@@ -53,5 +54,6 @@ export class Api {
     }
 }
 
-const api = new Api('https://jsonplaceholder.typicode.com');
+const baseUrl = process.env.REACT_APP_BASE_URL || 'https://jsonplaceholder.typicode.com'
+const api = new Api(baseUrl);
 export {api}

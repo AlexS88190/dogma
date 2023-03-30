@@ -2,17 +2,16 @@ import {Button, Card, Space} from 'antd';
 import React, {FC} from 'react';
 import {INews, IUserStorage} from "../../interfaces/interfaces";
 
-interface ListProps {
+interface NewsItemProps {
     newsItem: INews
     userStorage: IUserStorage,
-    sortNews: (authorName: string) => void
+    filterNews: (authorId: number) => void
 }
 
-const NewsItem: FC <ListProps> = ({ newsItem, userStorage, sortNews}) => {
+const NewsItem: FC <NewsItemProps> = ({ newsItem, userStorage, filterNews}) => {
 
-    const handleChangeSortNews = (event: React.MouseEvent<HTMLElement>) => {
-        const target = event.target as HTMLButtonElement;
-        sortNews(target.innerHTML)
+    const handleChangeSortNews = () => {
+        filterNews(newsItem.userId)
     }
 
     const authorContainer = <Button type="link" onClick={handleChangeSortNews}>{userStorage[newsItem.userId].name}</Button>

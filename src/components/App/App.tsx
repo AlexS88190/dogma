@@ -13,9 +13,6 @@ function App() {
 
     const navigate = useNavigate();
 
-
-
-
     const handleLogin = async () => {
         setLoggedIn(true);
         await getJwtToken()
@@ -42,9 +39,6 @@ function App() {
         setLoggedIn(false);
         navigate('/signin');
     }
-
-
-
 
   return (
     <div className="page">

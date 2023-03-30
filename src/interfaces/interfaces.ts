@@ -39,6 +39,14 @@ export interface INews {
     body: string
 }
 
+export interface IPicture {
+    albumId: number,
+    id: number,
+    thumbnailUrl: string,
+    title: string,
+    url: string
+}
+
 export interface IUserStorage {
     [id: number]: IUser
 }

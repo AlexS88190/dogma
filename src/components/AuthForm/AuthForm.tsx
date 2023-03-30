@@ -4,8 +4,6 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { Typography } from 'antd';
 const { Title } = Typography;
 
-
-
 interface AuthFormProps {
     handleLogin: () => void,
 }
@@ -16,13 +14,6 @@ interface IValues {
     remember: boolean
 }
 
-
-
-const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-};
-
-
 const AuthForm: FC <AuthFormProps> = ({ handleLogin }) => {
 
     const handleSubmit = (values: IValues) => {
@@ -32,10 +23,7 @@ const AuthForm: FC <AuthFormProps> = ({ handleLogin }) => {
         }
     };
 
-
     return (
-
-
         <div className="authform">
             <Title className="authform__title">Авторизация</Title>
             <Form
@@ -45,10 +33,8 @@ const AuthForm: FC <AuthFormProps> = ({ handleLogin }) => {
                 style={{maxWidth: 600}}
                 initialValues={{remember: true}}
                 onFinish={handleSubmit}
-                onFinishFailed={onFinishFailed}
                 autoComplete="off"
                 className="authform__content"
-
             >
                 <Form.Item
                     label="E-mail"

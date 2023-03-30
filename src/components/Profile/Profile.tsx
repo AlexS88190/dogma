@@ -1,13 +1,11 @@
-import React, {FC, useEffect, useState} from "react";
-import {Button, Form, Input, notification} from "antd";
+import React, {FC} from "react";
+import {Button, Form, Input} from "antd";
 import { Typography } from 'antd';
 import './Profile.css';
 import {IUser, IValuesProfile} from "../../interfaces/interfaces";
 import Preloader from "../Preloader/Preloader";
 
-
 const { Title } = Typography;
-
 
 interface ProfileProps {
     user: IUser | undefined,
@@ -16,7 +14,6 @@ interface ProfileProps {
 }
 
 const Profile: FC <ProfileProps> = ({ user, isPreloader, editProfile }) => {
-
 
     return (
             <div className="profile">
@@ -40,15 +37,11 @@ const Profile: FC <ProfileProps> = ({ user, isPreloader, editProfile }) => {
                         {name:["website"], value: user?.website},
                         {name:["company"], value: user?.company.name}
                     ]}
-
                 >
                     <Form.Item
                         label="Полное имя"
                         name="name"
                         rules={[{required: true, message: 'Введите имя пользователя'}]}
-                        // wrapperCol={{ offset: 0, span: 16 }}
-                        // labelCol={{ offset: 0, span: 8 }}
-
                     >
                         <Input />
                     </Form.Item>
@@ -56,8 +49,6 @@ const Profile: FC <ProfileProps> = ({ user, isPreloader, editProfile }) => {
                     <Form.Item
                         label="Никнейм"
                         name="username"
-                        // labelCol={{ offset: 5, span: 0 }}
-                        // wrapperCol={{ offset: 5, span: 16 }}
                     >
                         <Input />
                     </Form.Item>
@@ -69,7 +60,6 @@ const Profile: FC <ProfileProps> = ({ user, isPreloader, editProfile }) => {
                             {type: 'email', message: 'Формат почты не корректен!'},
                             {required: true, message: 'Введите свой E-mail!'}
                         ]}
-                        // labelCol={{ offset: 5, span: 3 }}
                     >
                         <Input />
                     </Form.Item>
@@ -105,11 +95,7 @@ const Profile: FC <ProfileProps> = ({ user, isPreloader, editProfile }) => {
 
                     <Form.Item
                         wrapperCol={{ offset: 11 }}
-                        // labelCol={{ offset: 5, span: 3 }}
                     >
-                        {/*<Button type="primary" ghost disabled={false}>*/}
-                        {/*    Редактировать*/}
-                        {/*</Button>*/}
                     </Form.Item>
 
                     <Form.Item
