@@ -5,6 +5,7 @@ import Main from "../Main/Main";
 import {Routes, Route, useNavigate} from "react-router-dom";
 import * as jose from 'jose'
 import Cookies from 'universal-cookie';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 
 
@@ -55,11 +56,11 @@ function App() {
               <Route
                   path='/'
                   element={
-                      // <ProtectedRoute path='/signup' loggedIn={loggedIn}>
-                      <Main
-                          handleLogout={handleLogout}
-                      />
-                      // </ProtectedRoute>
+                      <ProtectedRoute path='/' isloggedIn={isloggedIn}>
+                          <Main
+                              handleLogout={handleLogout}
+                          />
+                      </ProtectedRoute>
                   }
 
               />
