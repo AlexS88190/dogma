@@ -41,29 +41,29 @@ interface ListProps {
     isPreloader: boolean
 }
 
-interface ICounter {
-    start: number,
-    limit: number
-}
 
 const _List: FC<ListProps> = ({ currentPage, userStorage, turnOnPreloader, turnOffPreloader, isPreloader }) => {
 
     const [news, setNews] = useState<INews[]>([]);
+    const [authorId, setAuthorId] = useState<number | undefined>(undefined);
 
-    const [counter, setCounter] = useState<ICounter>({start: 0, limit: 12});
+    const [limit, setLimit] = useState<number>(12);
 
 
 
     useEffect(() => {
-        getNews(counter.start, counter.limit)
-    }, [counter])
+        if (authorId) {
+            getSortNews(authorId, limit)
+        } else {
+            getNews(limit)
+        }
+    }, [limit])
 
 
-    const getNews = async (start: number, limit: number) => {
+    const getNews = async (limit: number) => {
         turnOnPreloader()
         try {
-            const responseNews:INews[] = await api.getNews(start, limit);
-            console.log(responseNews)
+            const responseNews:INews[] = await api.getNews(limit);
             setNews(responseNews)
             turnOffPreloader()
 
@@ -74,12 +74,32 @@ const _List: FC<ListProps> = ({ currentPage, userStorage, turnOnPreloader, turnO
     }
 
     const getNumberNews = () => {
-        setCounter(
-            {
-                ...counter,
-                limit: counter.limit + 12
+        setLimit(limit + 12)
+    }
+
+
+    const getSortNews = async (authorId: number, limit: number) => {
+        turnOnPreloader()
+        try {
+            const responseNews: INews[] = await api.getNewsUser(authorId, limit);
+            setNews(responseNews)
+            turnOffPreloader()
+
+        } catch (error) {
+            console.log(error)
+            turnOffPreloader()
+        }
+    }
+
+    const sortNews = (authorName: string) => {
+        let authorId!: number
+        for (const key in userStorage) {
+            if (userStorage[key].name === authorName) {
+                authorId = userStorage[key].id
+                setAuthorId(authorId)
             }
-        )
+        }
+        getSortNews(authorId, limit)
     }
 
     return (
@@ -92,7 +112,7 @@ const _List: FC<ListProps> = ({ currentPage, userStorage, turnOnPreloader, turnO
                 renderItem={(item, index) => (
                     <div className="list__item">
                         {currentPage === 'news'
-                            ? <NewsItem newsItem={item} userStorage={userStorage}/>
+                            ? <NewsItem newsItem={item} userStorage={userStorage} sortNews={sortNews}/>
                             : <PhotoItem/>
                         }
                     </div>

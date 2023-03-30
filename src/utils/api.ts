@@ -24,6 +24,8 @@ export class Api {
         }));
     }
 
+
+
     updateProfileInfo = async (user: IUser): Promise<IUser> => {
         return this.addHandlers<IUser>(fetch( `${this.baseUrl}/users/1`, {
             method: 'PUT',
@@ -32,8 +34,14 @@ export class Api {
         }));
     }
 
-    getNews = async (start: number, limit: number): Promise<INews[]> => {
-        return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/posts?_start=${start}&_limit=${limit}`, {
+    getNews = async (limit: number): Promise<INews[]> => {
+        return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/posts?_start=0&_limit=${limit}`, {
+            headers : this.headers
+        }));
+    }
+
+    getNewsUser = async (authorId: number, limit: number): Promise<INews[]> => {
+        return this.addHandlers<INews[]>(fetch(`${this.baseUrl}/users/${authorId}/posts?_start=0&_limit=${limit}`, {
             headers : this.headers
         }));
     }

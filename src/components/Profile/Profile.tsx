@@ -4,7 +4,6 @@ import { Typography } from 'antd';
 import './Profile.css';
 import {IUser, IValuesProfile} from "../../interfaces/interfaces";
 import Preloader from "../Preloader/Preloader";
-import {api} from "../../utils/api";
 
 
 const { Title } = Typography;
